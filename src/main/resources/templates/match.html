@@ -11,13 +11,8 @@
     <a href="/logout">ログアウト</a>
   </div>
   <h1>Match</h1>
-  <h2 th:if="${player}">
-  [[${player}]] V.S. [[${enemy}]]</h2>
-  <div th:if="${users1}">
-    <ul th:each="user,stat:${users1}">
-      <li>[[${user.userName}]]</li>
-    </ul>
-  </div>
+  <h2 th:if="${loginUser}">
+  [[${loginUser}]] V.S. [[${enemy.userName}]]</h2>
   <!--
   <a href="/jankengame?hand=Gu">ぐー</a>
   <a href="/jankengame?hand=Tyoki">ちょき</a>

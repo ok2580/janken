@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.springframework.org/schema/security">
 
 <head>
   <meta charset="utf-8">
@@ -17,11 +17,11 @@
   <div th:if="${users1}">
     <h2>エントリー</h2>
     <ul>
-      <li th:each="user, stat:${users1}">[[${user.userName}]]</li>
+      <li th:each="user : ${users1}"><a th:href="@{/match(id=${user.id})}"> [[${user.userName}]]</a></li>
     </ul>
   </div>
   <h3>試合結果</h3>
-  <p th:if="${matches1}"></p>
+  <p th:if="${matches1}">
   <div th:each="matches,stat:${matches1}">
     <tr>
       <td>id:[[${matches.id}]]</td>
@@ -32,6 +32,7 @@
     </tr>
   </div>
   </p>
+
   <p>
   <form action="/jankengame" method="post">
   </form>

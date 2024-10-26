@@ -13,6 +13,9 @@ public interface UserMapper {
   @Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id")
   void insertUser(User users);
 
+  @Select("SELECT * from users where id = #{userId}")
+  User selectAllById(int userId);
+
 
   @Select("SELECT * from users")
   ArrayList<User> selectAll();

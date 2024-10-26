@@ -15,12 +15,23 @@
     Hi [[${loginUser}]]</div>
 
   <div th:if="${users1}">
-    エントリー
+    <h2>エントリー</h2>
     <ul>
       <li th:each="user, stat:${users1}">[[${user.userName}]]</li>
     </ul>
   </div>
-
+  <h3>試合結果</h3>
+  <p th:if="${matches1}"></p>
+  <div th:each="matches,stat:${matches1}">
+    <tr>
+      <td>id:[[${matches.id}]]</td>
+      <td>user1:[[${matches.user1}]]</td>
+      <td>user2:[[${matches.user2}]]</td>
+      <td>user1の手:[[${matches.user1Hand}]]</td>
+      <td>user2の手:[[${matches.user2Hand}]]</td>
+    </tr>
+  </div>
+  </p>
   <p>
   <form action="/jankengame" method="post">
   </form>

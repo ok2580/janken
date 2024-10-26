@@ -11,14 +11,15 @@
 
   <h1>Janken GAME!</h1>
 
-  <div th:if="${room}">
+  <div th:if="${loginUser}">
+    Hi [[${loginUser}]]</div>
+
+  <div th:if="${users1}">
     エントリー
     <ul>
-      <li th:each="user : ${room.users}">[[${user}]]</li>
+      <li th:each="user, stat:${users1}">[[${user.userName}]]</li>
     </ul>
   </div>
-  <div th:if="${player}">
-    Hi [[${player}]]</div>
 
   <p>
   <form action="/jankengame" method="post">

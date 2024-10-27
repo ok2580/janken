@@ -11,22 +11,20 @@
     <a href="/logout">ログアウト</a>
   </div>
   <h1>Match</h1>
-  <h2 th:if="${player}">
-  [[${player}]] V.S. [[${enemy}]]</h2>
-  <div th:if="${users1}">
-    <ul th:each="user,stat:${users1}">
-      <li>[[${user.userName}]]</li>
-    </ul>
-  </div>
-  <!--
-  <a href="/jankengame?hand=Gu">ぐー</a>
-  <a href="/jankengame?hand=Tyoki">ちょき</a>
-  <a href="/jankengame?hand=Pa">ぱー</a>
+  <h2 th:if="${loginUserName}">
+  [[${loginUserName}]] V.S. [[${enemy.userName}]]</h2>
+
+  <a th:href="@{/fight(id=${enemy.id}, hand=Gu)}">ぐー</a>
+  <a th:href="@{/fight(id=${enemy.id}, hand='Choki')}">ちょき</a>
+  <a th:href="@{/fight(id=${enemy.id}, hand='Pa')}">ぱー</a>
   <div th:if="${Result}">
     <p>あなたの手 [[${hand}]]</p>
     <p>相手の手 Gu</p>
     結果 [[${Result}]]
-  </div>-->
+  </div>
+  <p>
+  <a href="/janken">もどる</a>
+  </p>
 </body>
 
 </html>

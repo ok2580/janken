@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -48,22 +49,38 @@ public class JankenController {
     return "match.html";
   }
 
-  @GetMapping("/jankengame")
-  public String jankengame(@RequestParam String hand, ModelMap model) {
+  @GetMapping("/fight")
+  @Transactional
+  public String fight(@RequestParam Integer id, @RequestParam String hand,ModelMap model,Principal prin) {
+    Match match1= new Match();
+    String loginUserName = prin.getName();
     String Result = "";
     String enemyHand = "Gu";
     if (hand.equals(enemyHand)) {
-      Result = "あいこ";
+      Result = "Draw";
     } else if (enemyHand.equals("Gu")) {
       if (hand.equals("Pa")) {
-        Result = "あなたの勝ち";
-      } else if (hand.equals("Tyoki")) {
-        Result = "相手の勝ち";
+        Result = "Win";
+      } else if (hand.equals("Choki")) {
+        Result = "Lose";
       }
     }
+    User loginUser = userMapper.selectAllByuserName(loginUserName);
+
+    match1.setUser1(loginUser.getId());
+    match1.setUser2(id);
+    match1.setUser1Hand(hand);
+    match1.setUser2Hand(enemyHand);
+
     model.addAttribute("Result", Result);
     model.addAttribute("hand", hand);
-    return "janken.html";
+    model.addAttribute("enemyHand", enemyHand);
+    model.addAttribute("loginUserName", loginUserName);
+    User enemy = userMapper.selectAllById(id);
+    model.addAttribute("enemy", enemy);
+    matchMapper.insertMatch(match1);
+
+    return "match.html";
 
   }
 
